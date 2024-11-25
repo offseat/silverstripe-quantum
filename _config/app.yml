@@ -1,0 +1,5 @@
+---
+Name: quantum
+---
+SilverStripe\Core\Manifest\ModuleManifest:
+  project: quantum

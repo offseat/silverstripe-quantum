@@ -1,0 +1,9 @@
+---
+Name: quantum qroutes
+After:
+  - '#rootroutes'
+  - '#coreroutes'
+---
+SilverStripe\Control\Director:
+  rules:
+    'api/v1/$@': 'Silverstripe\Quantum\Controller\ApiController'
