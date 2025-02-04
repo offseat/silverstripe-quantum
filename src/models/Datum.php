@@ -8,15 +8,15 @@ use SilverStripe\Security\Member;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Security;
 
-class DataEntity extends DataObject
+class Datum extends DataObject
 {
-    private static $table_name = 'DataEntity';
+    private static $table_name = 'Datum';
 
     private static $icon = 'font-icon-block-form';
 
-    private static $singular_name = 'DataEntity';
+    private static $singular_name = 'Data';
 
-    private static $plural_name = 'DataEntites';
+    private static $plural_name = 'Data';
 
     private static $db = [
         'PreparedData' => 'Text',
@@ -72,7 +72,7 @@ class DataEntity extends DataObject
         $this->SubmittedByID = Security::getCurrentUser()->ID;
 
         $data = [];
-        foreach($this->Parent()->data()->FieldNames->getValues() as $field) {
+        foreach ($this->Parent()->data()->FieldNames->getValues() as $field) {
             if (isset($this->record[$field])) {
                 $data[$field] = $this->record[$field];
             }

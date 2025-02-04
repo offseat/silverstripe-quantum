@@ -1,12 +1,17 @@
 # Silverstripe Quantum
 
-API builder using the CMS intnerface
+Content builder using the CMS interface
 
-## Contents
-The default way to add data in silverstripe involves developers to create Models and Model Admins. 
-Quantum is a new approach that allows Content to be created without a specific Model class.
+## Overview
 
-First a user will create a new DataSource, that will then define the fields the data will have and a api route point.
-Then create a DataEntity that loads in the defined fields ready for input.
+Quantum is a new approach that allows content to be created without a developer creating a Model class each time.
 
-We store the Values of the DataEntity in a JSON string to be served by the API request
+A CMS user will create a new Collection, that will then define the field types that can be populated and returned at an api endpoint.
+
+### Collection
+
+Defines the route to the api endpointand the fields available for the data (atoms), list of atoms that are in this collection, with add-on module you can add more refined permissions
+
+### Datum
+
+data that the api returns, the fields are defined in the collection, add versions module to allow changes to be drafted before publication

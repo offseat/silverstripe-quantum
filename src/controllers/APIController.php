@@ -4,7 +4,8 @@ namespace SilverStripe\Quantum\Controller;
 
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPResponse;
-use Silverstripe\Quantum\Model\DataSource;
+use SilverStripe\Quantum\Auth\Security\PermissionCode;
+use Silverstripe\Quantum\Model\Collection;
 use SilverStripe\Security\Security;
 
 class APIController extends Controller
@@ -17,22 +18,30 @@ class APIController extends Controller
 
     public function index()
     {
-        if (!Security::getCurrentUser()) {
+        $member = Security::getCurrentUser();
+
+        if (!$member) {
             return HTTPResponse::create('{\'message\':\'unauthorized action\'}');
         }
 
         $url = $this->getRequest()->getURL();
-        $request = str_replace( self::$url_segment, '', $url);
+        $requestPath = str_replace( self::$url_segment, '', $url);
 
-        if ($request && $request !== '') {
-            $dataSource = DataSource::get()->filter('Route', $request)->First();
+        if ($requestPath && $requestPath !== '') {
+            $collection = Collection::get()->filter('Route', $requestPath)->First();
 
-            if ($dataSource) {
-                $response = $dataSource->getPreparedData();
-            
-                if ($response) {
-                    return HTTPResponse::create(json_encode($response));
-                }
+            if (!$collection) {
+                return HTTPResponse::create('{\'message\':\'not found\'}');
+            }
+
+            if (class_exists(PermissionCode::class) && !$collection->checkPermission()) {
+                return HTTPResponse::create('{\'message\':\'unauthorized action\'}');
+            }
+
+            $response = $collection->getPreparedData();
+        
+            if ($response) {
+                return HTTPResponse::create(json_encode($response));
             }
         }
 
