@@ -17,6 +17,15 @@
         "silverstripe/standards": "^1",
         "phpstan/extension-installer": "^1.3"
     },
+    "extra": {
+        "expose": [
+            "client/dist"
+        ]
+    },
+    "scripts": {
+        "lint": "phpcs -s src/",
+        "lint-clean": "phpcbf src/"
+    },
     "autoload": {
         "psr-4": {
             "Silverstripe\\Quantumn\\": "src/",
