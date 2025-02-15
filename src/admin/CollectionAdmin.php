@@ -3,21 +3,21 @@
 namespace Silverstripe\Quantum\Admin;
 
 use SilverStripe\Admin\ModelAdmin;
-use Silverstripe\Quantum\Model\DataSource;
+use Silverstripe\Quantum\Model\Collection;
 
-class DataSourceAdmin extends ModelAdmin
+class CollectionAdmin extends ModelAdmin
 {
 
-    private static $menu_title = "Data Sources";
+    private static $menu_title = "Collections";
 
-	private static $url_segment = "data-sources";
+	private static $url_segment = "collections";
 
 	private static $menu_priority = 100;
 
 	private static $url_priority = 30;
 
     private static $managed_models = [
-        DataSource::class
+        Collection::class
     ];
 
     public function init() {
