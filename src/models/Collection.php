@@ -7,6 +7,7 @@ use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\PermissionFailureException;
+use Symbiote\MultiValueField\Fields\KeyValueField;
 use Symbiote\MultiValueField\Fields\MultiValueTextField;
 
 class Collection extends DataObject
@@ -34,6 +35,26 @@ class Collection extends DataObject
         'Route',
     ];
 
+    const fieldtypes = [
+        'TextField',
+        'TextareaField',
+        'HTMLEditorField',
+        'CheckboxField',
+        'DropdownField',
+        'NumericField',
+        'EmailField',
+        'DateField',
+        'TimeField',
+        'DatetimeField',
+        'OptionsetField',
+        'GridField',
+        'ReadonlyField',
+        'FileField',
+        'TreeDropdownField',
+        'CompositeField',
+        'FieldGroup',
+    ];
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
@@ -49,7 +70,7 @@ class Collection extends DataObject
 
         $fields->addFieldsToTab('Root.Main', [
             $entities,
-            MultiValueTextField::create('FieldNames', 'Field Names'),
+           KeyValueField::create('FieldNames', 'Field Names', self::fieldtypes),
         ]);
 
         return $fields;
@@ -75,5 +96,14 @@ class Collection extends DataObject
 
         return false;
 
+    }
+
+    /**
+     * Returns all fields on the object which should be shown
+     * in the output.
+     */
+    protected function getFieldsAsJson(): string {
+        $dbFields = DataObject::getSchema()->fieldSpecs(self::class);
+        return json_encode(array_keys($dbFields));
     }
 }
