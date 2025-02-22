@@ -4,11 +4,9 @@ namespace Silverstripe\Quantum\Model;
 
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
-use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\PermissionFailureException;
 use Symbiote\MultiValueField\Fields\KeyValueField;
-use Symbiote\MultiValueField\Fields\MultiValueTextField;
 
 class Collection extends DataObject
 {
@@ -35,24 +33,18 @@ class Collection extends DataObject
         'Route',
     ];
 
-    const fieldtypes = [
-        'TextField',
-        'TextareaField',
-        'HTMLEditorField',
-        'CheckboxField',
-        'DropdownField',
-        'NumericField',
-        'EmailField',
-        'DateField',
-        'TimeField',
-        'DatetimeField',
-        'OptionsetField',
-        'GridField',
-        'ReadonlyField',
-        'FileField',
-        'TreeDropdownField',
-        'CompositeField',
-        'FieldGroup',
+    private const fieldtypes = [
+        'TextField' => 'Text Field',
+        'TextareaField' => 'Textarea Field',
+        'HTMLEditorField' => 'HTML Editor Field',
+        'CheckboxField' => 'Checkbox Field',
+        'DropdownField' => 'Dropdown Field',
+        'NumericField' => 'Numeric Field',
+        'EmailField' => 'Email Field',
+        'DateField'     => 'Date Field',
+        'TimeField'    => 'Time Field',
+        'DatetimeField'     => 'Datetime Field',
+        'FieldGroup' => 'Field Group',
     ];
 
     public function getCMSFields()
